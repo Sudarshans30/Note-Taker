@@ -43,7 +43,9 @@ app.delete('/api/note/:is' , (req, res) => {
     const { id } = req.params;
     const deleted = notes.find(notes => notes.id === id)
     if(deleted) {
-        notes = notes.filter(notes => notes.id !== id)
+        console.log(deleted);
+        notes = notes.filter(notes => notes.id !== id);
+        res.status(200).json(deleted);
     }
     else{
         res.status(404).json({message: "could not find notes"})
