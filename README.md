@@ -9,8 +9,9 @@ The goal of this app was to utilise Express and Heroku to deploy a live app that
 
 The User can navigate to the following address to begin using the application: https://deploying-note-taking-web.herokuapp.com
 
-Credits
+## Credits
+
 Thanks to the TAs for guidance and support.
 
-License
+## License
 Licensed under the MIT license.
