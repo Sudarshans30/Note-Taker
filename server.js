@@ -39,8 +39,8 @@ app.post("/api/notes", function(req, res) {
 });
 
 
-app.delete('/api/note/:is' , (req, res) => {
-    const { id } = req.params;
+app.delete('/api/note/:id' , (req, res) => {
+    const  id  = req.params.id * 1;
     const deleted = notes.find(notes => notes.id === id)
     if(deleted) {
         console.log(deleted);
