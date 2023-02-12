@@ -7,6 +7,7 @@ const fs = require("fs");
 const util = require("util");
 const db = require("./Develop/db/db.json");
 const { json } = require("body-parser");
+const { notDeepStrictEqual } = require("assert");
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
@@ -42,14 +43,27 @@ app.post("/api/notes", function(req, res) {
 app.delete('/api/note/:id' , (req, res) => {
     const  id  = req.params.id * 1;
     const deleted = notes.find(notes => notes.id === id)
-    if(deleted) {
-        console.log(deleted);
-        notes = notes.filter(notes => notes.id !== id);
-        res.status(200).json(deleted);
+    if(!deleted) {
+        return res.status(404).json({
+            status: 'fail',
+            message: 'no Id found to delete'
+        })
     }
-    else{
-        res.status(404).json({message: "could not find notes"})
-    }
+    const index = notes.indexOf(deleted);
+    notes.splice(index, 1);
+
+    fs.writeFile('./Develop/db/db.json', JSON.stringify(notes), (err) =>{
+        res.status(204).json({
+            status: "success",
+            data: {
+                notes : null
+            }
+
+            
+        })
+    })
+
+
 })
 
 
